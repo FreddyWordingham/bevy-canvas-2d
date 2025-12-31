@@ -13,5 +13,6 @@ pub mod prelude {
         config::CanvasConfig,
         messages::{ClearCanvas, DrawPixel, DrawPixels, DrawRect, DrawSpan},
         plugin::CanvasPlugin,
+        utils::{pack_rgba8, unpack_rgba8},
     };
 }

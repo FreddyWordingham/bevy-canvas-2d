@@ -7,7 +7,7 @@ use super::{
     config::CanvasConfig,
     messages::{ClearCanvas, DrawPixel, DrawPixels, DrawRect, DrawSpan},
     resources::CanvasUploadOps,
-    systems::{apply_canvas_uploads, spawn_canvas},
+    systems::{apply_canvas_uploads, collect_ops, spawn_canvas},
 };
 
 /// Plugin for a chunked 2D canvas.
@@ -31,7 +31,7 @@ impl Plugin for CanvasPlugin {
         app.insert_resource(self.config.clone());
 
         // Systems
-        app.add_systems(Update, spawn_canvas);
+        app.add_systems(Update, spawn_canvas).add_systems(Update, collect_ops);
 
         // Render-world system
         app.sub_app_mut(RenderApp)

@@ -1,6 +1,6 @@
 //! Internal types and pure geometry helpers.
 
-use bevy::prelude::*;
+use bevy::{math::U8Vec2, prelude::*};
 
 /// Canvas geometry helper; encapsulates common coordinate transforms:
 /// - wrapping toroidally within the canvas
@@ -23,10 +23,55 @@ impl CanvasLayout {
         Self { canvas_size, chunk_size }
     }
 
+    /// Number of chunks in each axis.
+    #[inline]
+    pub fn num_chunks(self) -> U8Vec2 {
+        (self.canvas_size / self.chunk_size).as_u8vec2()
+    }
+
     /// Toroidal wrap within canvas bounds.
     #[inline]
     pub fn wrap(self, pos: UVec2) -> UVec2 {
         pos % self.canvas_size
+    }
+
+    /// Convert a chunk coordinate into a compact `U8Vec2` key.
+    /// Chunk count must fit within 8-bit per axis (<=255).
+    #[inline]
+    pub fn chunk_key(self, chunk_xy: UVec2) -> U8Vec2 {
+        debug_assert!(chunk_xy.x < 256 && chunk_xy.y < 256);
+        U8Vec2::new(chunk_xy.x as u8, chunk_xy.y as u8)
+    }
+
+    /// Chunk coordinate (in chunk grid space) for a wrapped pixel.
+    #[inline]
+    pub fn chunk_xy(self, wrapped_pos: UVec2) -> UVec2 {
+        wrapped_pos / self.chunk_size
+    }
+
+    /// Convert a wrapped pixel to chunk-local pixel coordinates.
+    #[inline]
+    pub fn local_xy(self, wrapped_pos: UVec2) -> UVec2 {
+        let chunk_xy = self.chunk_xy(wrapped_pos);
+        wrapped_pos - self.chunk_min(chunk_xy)
+    }
+
+    /// Pixel-space origin (min corner) of a chunk in canvas coordinates.
+    #[inline]
+    pub fn chunk_min(self, chunk_xy: UVec2) -> UVec2 {
+        chunk_xy * self.chunk_size
+    }
+
+    /// Maximum contiguous pixels you can write starting at `wrapped_pos`,
+    /// without crossing the canvas row end or the chunk row end.
+    ///
+    /// This is the fundamental constraint enabling `write_run` to be safe.
+    #[inline]
+    pub fn max_run_len(self, wrapped_pos: UVec2) -> u32 {
+        let local = self.local_xy(wrapped_pos);
+        let until_canvas_row_end = self.canvas_size.x - wrapped_pos.x;
+        let until_chunk_row_end = self.chunk_size.x - local.x;
+        until_canvas_row_end.min(until_chunk_row_end)
     }
 }
 
