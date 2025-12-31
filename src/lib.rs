@@ -1,6 +1,7 @@
 use bevy::prelude::*;
 
 pub mod config;
+mod settings;
 
 use config::*;
 

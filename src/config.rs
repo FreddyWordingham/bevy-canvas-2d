@@ -6,6 +6,8 @@
 
 use bevy::{math::U8Vec2, prelude::*};
 
+use super::settings::{DEFAULT_CANVAS_SIZE, DEFAULT_CANVAS_Z_INDEX, DEFAULT_CLEAR_COLOUR, DEFAULT_NUM_CHUNKS};
+
 /// Runtime configuration for the canvas plugin.
 #[derive(Resource, Clone)]
 pub struct CanvasConfig {
@@ -95,10 +97,10 @@ impl CanvasConfig {
 impl Default for CanvasConfig {
     fn default() -> Self {
         Self {
-            clear_colour: 0xffffffff,
-            canvas_z_index: 0.0,
-            canvas_size: UVec2::new(1024, 1024),
-            num_chunks: U8Vec2::new(4, 4),
+            clear_colour: DEFAULT_CLEAR_COLOUR,
+            canvas_z_index: DEFAULT_CANVAS_Z_INDEX,
+            canvas_size: DEFAULT_CANVAS_SIZE,
+            num_chunks: DEFAULT_NUM_CHUNKS,
         }
     }
 }
