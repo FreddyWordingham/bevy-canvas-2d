@@ -8,7 +8,7 @@ use bevy::{
 use super::{
     components::CanvasImage,
     config::CanvasConfig,
-    resources::{CanvasCpuChunks, CanvasImageHandles},
+    resources::{CanvasCpuChunks, CanvasDirtyRects, CanvasImageHandles, CanvasUploadOps},
     utils,
 };
 
@@ -72,4 +72,8 @@ pub fn spawn_canvas(mut commands: Commands, config: Res<CanvasConfig>, mut image
 
     // CPU chunks store packed pixels
     commands.insert_resource(CanvasCpuChunks::new(num_chunks, chunk_size, clear_colour));
+
+    // Dirty rect tracking and upload ops buffer.
+    commands.insert_resource(CanvasDirtyRects::new(num_chunks, chunk_size));
+    commands.insert_resource(CanvasUploadOps::default());
 }

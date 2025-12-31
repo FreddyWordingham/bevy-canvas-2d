@@ -5,6 +5,7 @@ mod plugin;
 mod resources;
 mod settings;
 mod systems;
+mod types;
 mod utils;
 
 pub mod prelude {
