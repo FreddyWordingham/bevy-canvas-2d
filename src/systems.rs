@@ -5,16 +5,22 @@ use bevy::{
     render::render_resource::{Extent3d, TextureDimension, TextureFormat, TextureUsages},
 };
 
-use super::{components::CanvasImage, config::CanvasConfig, resources::CanvasImageHandles, utils};
+use super::{
+    components::CanvasImage,
+    config::CanvasConfig,
+    resources::{CanvasCpuChunks, CanvasImageHandles},
+    utils,
+};
 
 /// Spawn chunk images/sprites, and initialise CPU resources.
 pub fn spawn_canvas(mut commands: Commands, config: Res<CanvasConfig>, mut images: ResMut<Assets<Image>>) {
     let num_chunks = config.num_chunks();
     let chunk_size = config.chunk_size();
     let pixels_per_chunk = config.pixels_per_chunk();
+    let clear_colour = config.clear_colour();
 
     // Initialise GPU images with the clear colour as raw RGBA8 bytes.
-    let clear_colour_bytes = utils::unpack_rgba8(config.clear_colour());
+    let clear_colour_bytes = utils::unpack_rgba8(clear_colour);
     let mut data = vec![0u8; pixels_per_chunk * 4];
     for px in data.chunks_exact_mut(4) {
         px.copy_from_slice(&clear_colour_bytes);
@@ -63,4 +69,7 @@ pub fn spawn_canvas(mut commands: Commands, config: Res<CanvasConfig>, mut image
 
     // Store image handles
     commands.insert_resource(CanvasImageHandles::new(num_chunks, image_handles));
+
+    // CPU chunks store packed pixels
+    commands.insert_resource(CanvasCpuChunks::new(num_chunks, chunk_size, clear_colour));
 }
