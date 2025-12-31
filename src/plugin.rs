@@ -8,5 +8,8 @@ pub struct CanvasPlugin {
 }
 
 impl Plugin for CanvasPlugin {
-    fn build(&self, _app: &mut App) {}
+    fn build(&self, app: &mut App) {
+        // Resources
+        app.insert_resource(self.config.clone());
+    }
 }
