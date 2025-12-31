@@ -2,6 +2,7 @@
 name = "bevy-canvas-2d"
 version = "0.1.0"
 edition = "2024"
+authors = ["Freddy Wordingham <freddy@digilab.ai>"]
 
 [dependencies]
 bevy = "0.17.3"
