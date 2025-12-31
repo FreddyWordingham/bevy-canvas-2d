@@ -1,9 +1,13 @@
-use bevy::prelude::*;
+use bevy::{
+    prelude::*,
+    render::{Render, RenderApp, RenderSystems, extract_resource::ExtractResourcePlugin},
+};
 
 use super::{
     config::CanvasConfig,
     messages::{ClearCanvas, DrawPixel, DrawPixels, DrawRect, DrawSpan},
-    systems::spawn_canvas,
+    resources::CanvasUploadOps,
+    systems::{apply_canvas_uploads, spawn_canvas},
 };
 
 /// Plugin for a chunked 2D canvas.
@@ -13,6 +17,9 @@ pub struct CanvasPlugin {
 
 impl Plugin for CanvasPlugin {
     fn build(&self, app: &mut App) {
+        // Plugins.
+        app.add_plugins(ExtractResourcePlugin::<CanvasUploadOps>::default());
+
         // Messages
         app.add_message::<ClearCanvas>()
             .add_message::<DrawPixel>()
@@ -25,5 +32,9 @@ impl Plugin for CanvasPlugin {
 
         // Systems
         app.add_systems(Update, spawn_canvas);
+
+        // Render-world system
+        app.sub_app_mut(RenderApp)
+            .add_systems(Render, apply_canvas_uploads.in_set(RenderSystems::Queue));
     }
 }
