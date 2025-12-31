@@ -464,7 +464,7 @@ fn build_upload_ops(
             let src_u32 = &chunk[row_start + x0..row_start + x1];
 
             for (i, &px) in src_u32.iter().enumerate() {
-                row_bytes[i * 4..i * 4 + 4].copy_from_slice(&px.to_le_bytes());
+                row_bytes[i * 4..i * 4 + 4].copy_from_slice(&utils::unpack_rgba8(px));
             }
 
             bytes.extend_from_slice(&row_bytes);

@@ -3,10 +3,6 @@
 //! These messages are consumed by the canvas systems each update,
 //! translated into CPU writes and dirty-rect tracking,
 //! and finally into GPU upload operations.
-//!
-//! ## Pixel encoding
-//! All `rgba_u32` values are treated as **RGBA8 packed in little-endian**:
-//! `u32::from_le_bytes([r,g,b,a])`.
 
 use bevy::prelude::*;
 
