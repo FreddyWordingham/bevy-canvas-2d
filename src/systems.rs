@@ -5,7 +5,7 @@ use bevy::{
     render::render_resource::{Extent3d, TextureDimension, TextureFormat, TextureUsages},
 };
 
-use super::{components::CanvasImage, config::CanvasConfig, utils};
+use super::{components::CanvasImage, config::CanvasConfig, resources::CanvasImageHandles, utils};
 
 /// Spawn chunk images/sprites, and initialise CPU resources.
 pub fn spawn_canvas(mut commands: Commands, config: Res<CanvasConfig>, mut images: ResMut<Assets<Image>>) {
@@ -60,4 +60,7 @@ pub fn spawn_canvas(mut commands: Commands, config: Res<CanvasConfig>, mut image
             ));
         }
     }
+
+    // Store image handles
+    commands.insert_resource(CanvasImageHandles::new(num_chunks, image_handles));
 }

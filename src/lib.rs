@@ -2,6 +2,7 @@ mod components;
 mod config;
 mod messages;
 mod plugin;
+mod resources;
 mod settings;
 mod systems;
 mod utils;
