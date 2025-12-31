@@ -3,6 +3,7 @@ use bevy::prelude::*;
 use super::{
     config::CanvasConfig,
     messages::{ClearCanvas, DrawPixel, DrawPixels, DrawRect, DrawSpan},
+    systems::spawn_canvas,
 };
 
 /// Plugin for a chunked 2D canvas.
@@ -21,5 +22,8 @@ impl Plugin for CanvasPlugin {
 
         // Resources
         app.insert_resource(self.config.clone());
+
+        // Systems
+        app.add_systems(Update, spawn_canvas);
     }
 }
