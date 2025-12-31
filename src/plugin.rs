@@ -9,6 +9,7 @@ use super::{
     resources::CanvasUploadOps,
     systems::{apply_canvas_uploads, collect_ops, spawn_canvas},
 };
+use crate::resources::CanvasImageHandles;
 
 /// Plugin for a chunked 2D canvas.
 pub struct CanvasPlugin {
@@ -31,7 +32,8 @@ impl Plugin for CanvasPlugin {
         app.insert_resource(self.config.clone());
 
         // Systems
-        app.add_systems(Update, spawn_canvas).add_systems(Update, collect_ops);
+        app.add_systems(Startup, spawn_canvas)
+            .add_systems(Update, collect_ops.run_if(resource_exists::<CanvasImageHandles>));
 
         // Render-world system
         app.sub_app_mut(RenderApp)

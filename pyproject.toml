@@ -1,0 +1,12 @@
+[project]
+name = "canvas"
+version = "0.0.0"
+description = "Generate bytecode for a 2D Turing machine"
+authors = [{ name = "Freddy Wordingham", email = "freddy@digilab.ai" }]
+readme = "README.md"
+requires-python = "^3.12"
+dependencies = ["typeguard (>=4.4.4,<5.0.0)"]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
