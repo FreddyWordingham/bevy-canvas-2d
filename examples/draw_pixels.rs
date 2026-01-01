@@ -4,7 +4,7 @@ use rand::Rng;
 
 mod shared;
 
-const CANVAS_SIZE: UVec2 = UVec2::splat(512);
+const CANVAS_SIZE: UVec2 = UVec2::splat(64);
 
 fn main() {
     App::new()
@@ -13,7 +13,7 @@ fn main() {
         .add_plugins(CanvasPlugin {
             config: CanvasConfig {
                 canvas_size: CANVAS_SIZE,
-                num_chunks: U8Vec2::splat(4),
+                num_chunks: U8Vec2::splat(1),
                 ..default()
             },
         })
