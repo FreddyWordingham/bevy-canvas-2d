@@ -6,10 +6,9 @@ use bevy::{
 use super::{
     config::CanvasConfig,
     messages::{ClearCanvas, DrawPixel, DrawPixels, DrawRect, DrawSpan},
-    resources::CanvasUploadOps,
+    resources::{CanvasImageHandles, CanvasUploadOps},
     systems::{apply_canvas_uploads, collect_ops, spawn_canvas},
 };
-use crate::resources::CanvasImageHandles;
 
 /// Plugin for a chunked 2D canvas.
 pub struct CanvasPlugin {
