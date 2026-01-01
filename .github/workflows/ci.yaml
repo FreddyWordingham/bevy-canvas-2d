@@ -7,7 +7,8 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -20,7 +21,16 @@ jobs:
             libwayland-dev \
             libxkbcommon-dev \
             libasound2-dev \
-            libudev-dev
+            libudev-dev \
+            libx11-dev \
+            libxi-dev \
+            libxrandr-dev \
+            libxcursor-dev
+
+          # Sanity checks so failures are obvious in logs
+          dpkg -L libwayland-dev | grep -E 'wayland-client\.pc$' || true
+          pkg-config --debug --libs --cflags wayland-client || true
+          pkg-config --libs --cflags wayland-client
 
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
