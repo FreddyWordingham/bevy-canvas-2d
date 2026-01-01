@@ -1,8 +1,13 @@
 [package]
 name = "bevy-canvas-2d"
+description = "A fast chunked 2D pixel canvas for Bevy with dirty-rect GPU uploads"
 version = "0.1.0"
 edition = "2024"
 authors = ["Freddy Wordingham <freddy@digilab.ai>"]
+readme = "README.md"
+keywords = ["bevy", "pixel", "canvas", "graphics", "simulation"]
+categories = ["game-development", "graphics", "rendering"]
+license = "MIT"
 
 [dependencies]
 bevy = "0.17"

@@ -24,6 +24,14 @@ Updates are submitted to the render world each frame and uploaded with `RenderQu
 - **Toroidal wrap** for draw operations that exceed canvas bounds
 - **Bottom-left origin** canvas coordinates
 
+## Use cases
+
+- Cellular automata and grid-based simulations
+- Pixel-art tools and editors
+- Procedural texture generation
+- Visual debugging buffers
+- High-frequency per-pixel updates in Bevy
+
 ## Compatibility
 
 | Bevy | Canvas 2D |
