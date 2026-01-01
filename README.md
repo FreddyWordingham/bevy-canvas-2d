@@ -1,8 +1,6 @@
 # bevy-canvas-2d
 
-A Bevy plugin that provides a very fast **chunked 2D pixel canvas** backed by CPU buffers and GPU `Image`s.
-
-This crate is intended for pixel-level rendering, simulations, cellular automata, editors, and procedural visuals where frequent small updates are required.
+A Bevy plugin that provides a very fast chunked 2D pixel canvas for pixel-art rendering, simulations, and procedural graphics, backed by CPU buffers and GPU Images.
 
 ## Overview
 
@@ -184,7 +182,7 @@ fn draw(mut msg: MessageWriter<DrawRect>) {
 
 ### Draw Spans (Row-Major Stream)
 
-DrawSpan writes a contiguous stream of pixels starting at start.
+`DrawSpan` writes a contiguous stream of pixels starting at start.
 It advances across X, then moves up a row, wrapping at edges.
 
 If the wrap exceeds the horizontal bound, then the pixels will wrap to the next row up.
