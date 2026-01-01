@@ -1,6 +1,5 @@
 use bevy::{math::U8Vec2, prelude::*};
 use bevy_canvas_2d::prelude::*;
-use rand::Rng;
 
 mod shared;
 
@@ -22,13 +21,10 @@ fn main() {
         .run();
 }
 
-fn clear_colour(mut seeded_rng: ResMut<shared::SeededRng>, mut clear_canvas_msg: MessageWriter<ClearCanvas>) {
+fn clear_colour(mut clear_canvas_msg: MessageWriter<ClearCanvas>, mut seeded_rng: ResMut<shared::SeededRng>) {
     let rng = seeded_rng.rng();
 
-    let r: u8 = rng.random_range(0..=255);
-    let g: u8 = rng.random_range(0..=255);
-    let b: u8 = rng.random_range(0..=255);
-    let a: u8 = 255;
+    let [r, g, b, a] = shared::random_colour(rng);
     let colour = pack_rgba8([r, g, b, a]);
 
     clear_canvas_msg.write(ClearCanvas { rgba_u32: colour });

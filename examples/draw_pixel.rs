@@ -21,16 +21,13 @@ fn main() {
         .run();
 }
 
-fn draw_pixel(mut seeded_rng: ResMut<shared::SeededRng>, mut draw_pixel_msg: MessageWriter<DrawPixel>) {
+fn draw_pixel(mut draw_pixel_msg: MessageWriter<DrawPixel>, mut seeded_rng: ResMut<shared::SeededRng>) {
     let rng = seeded_rng.rng();
 
     let x = rng.random_range(0..CANVAS_SIZE.x);
     let y = rng.random_range(0..CANVAS_SIZE.y);
 
-    let r: u8 = rng.random_range(0..=255);
-    let g: u8 = rng.random_range(0..=255);
-    let b: u8 = rng.random_range(0..=255);
-    let a: u8 = 255;
+    let [r, g, b, a] = shared::random_colour(rng);
     let colour = pack_rgba8([r, g, b, a]);
 
     draw_pixel_msg.write(DrawPixel {

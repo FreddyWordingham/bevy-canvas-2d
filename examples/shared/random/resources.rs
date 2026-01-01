@@ -4,7 +4,6 @@ use rand_chacha::ChaCha8Rng;
 
 #[derive(Resource)]
 pub struct SeededRng {
-    seed: u64,
     rng: ChaCha8Rng,
 }
 
@@ -18,7 +17,6 @@ impl Default for SeededRng {
 impl SeededRng {
     pub fn new(seed: u64) -> Self {
         SeededRng {
-            seed,
             rng: ChaCha8Rng::seed_from_u64(seed),
         }
     }

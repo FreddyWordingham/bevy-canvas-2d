@@ -17,25 +17,32 @@ fn main() {
                 ..default()
             },
         })
-        .add_systems(Update, draw_rect)
+        .add_systems(Update, draw_span)
         .run();
 }
 
-fn draw_rect(mut draw_rect_msg: MessageWriter<DrawRect>, mut seeded_rng: ResMut<shared::SeededRng>) {
+fn draw_span(mut draw_span_msg: MessageWriter<DrawSpan>, mut seeded_rng: ResMut<shared::SeededRng>, mut counter: Local<usize>) {
     let rng = seeded_rng.rng();
-
-    let x = rng.random_range(0..CANVAS_SIZE.x);
-    let y = rng.random_range(0..CANVAS_SIZE.y);
-
-    let w = rng.random_range(1..=64);
-    let h = rng.random_range(1..=64);
 
     let [r, g, b, a] = shared::random_colour(rng);
     let colour = pack_rgba8([r, g, b, a]);
 
-    draw_rect_msg.write(DrawRect {
-        start: UVec2::new(x, y),
-        size: UVec2::new(w, h),
-        rgba_u32: vec![colour; (w * h) as usize],
+    let l = rng.random_range(1..=128) as usize;
+
+    draw_span_msg.write(DrawSpan {
+        start: counter_to_pos(*counter),
+        rgba_u32: vec![colour; l],
     });
+
+    *counter += l;
+    *counter %= (CANVAS_SIZE.x * CANVAS_SIZE.y) as usize;
+}
+
+// -- Helpers --
+
+pub fn counter_to_pos(count: usize) -> UVec2 {
+    let x = (count as u32) % CANVAS_SIZE.x;
+    let y = (count as u32) / CANVAS_SIZE.x;
+
+    UVec2::new(x, y)
 }

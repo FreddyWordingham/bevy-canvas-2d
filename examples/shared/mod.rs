@@ -2,4 +2,4 @@ mod camera;
 mod random;
 
 pub use camera::CameraPlugin;
-pub use random::{RandomPlugin, SeededRng};
+pub use random::{RandomPlugin, SeededRng, random_colour};
