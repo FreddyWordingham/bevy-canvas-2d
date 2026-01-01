@@ -7,7 +7,7 @@
 [![crates.io](https://img.shields.io/crates/v/bevy-canvas-2d.svg)](https://crates.io/crates/bevy-canvas-2d)
 [![docs.rs](https://docs.rs/bevy-canvas-2d/badge.svg)](https://docs.rs/bevy-canvas-2d)
 ![Bevy](https://img.shields.io/badge/Bevy-0.17-blue)
-[![CI](https://github.com/FreddyWordingham/bevy-canvas-2d/actions/workflows/ci.yml/badge.svg)](https://github.com/FreddyWordingham/bevy-canvas-2d/actions)
+[![CI](https://github.com/FreddyWordingham/bevy-canvas-2d/actions/workflows/ci.yaml/badge.svg)](https://github.com/FreddyWordingham/bevy-canvas-2d/actions/workflows/ci.yaml)
 ![License](https://img.shields.io/crates/l/bevy-canvas-2d)
 
 A Bevy plugin that provides a very fast chunked 2D pixel canvas for pixel-art rendering, simulations, and procedural graphics, backed by CPU buffers and GPU Images.
