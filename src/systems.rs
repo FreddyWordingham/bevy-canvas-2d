@@ -430,7 +430,7 @@ fn build_upload_ops(
 
         // Pad X to satisfy bytes_per_row alignment
         let padding_min_x = (min_ex.x / ROW_ALIGN_PX) * ROW_ALIGN_PX;
-        let padding_max_x = (((max_ex.x + ROW_ALIGN_PX - 1) / ROW_ALIGN_PX) * ROW_ALIGN_PX).min(chunk_w);
+        let padding_max_x = (max_ex.x.div_ceil(ROW_ALIGN_PX) * ROW_ALIGN_PX).min(chunk_w);
 
         let padded_width = padding_max_x.saturating_sub(padding_min_x);
         if padded_width == 0 {

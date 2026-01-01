@@ -36,8 +36,8 @@ impl CanvasConfig {
         debug_assert!(canvas_size.y > 0);
         debug_assert!(chunks.x > 0);
         debug_assert!(chunks.y > 0);
-        debug_assert!(canvas_size.x % chunks.x as u32 == 0);
-        debug_assert!(canvas_size.y % chunks.y as u32 == 0);
+        debug_assert!(canvas_size.x.is_multiple_of(chunks.x as u32));
+        debug_assert!(canvas_size.y.is_multiple_of(chunks.y as u32));
 
         Self {
             clear_colour,
