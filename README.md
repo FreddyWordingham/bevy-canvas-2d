@@ -1,5 +1,9 @@
 # bevy-canvas-2d
 
+<p align="center">
+  <img src="./resources/images/pixels.png" alt="Pixels">
+</p>
+
 [![crates.io](https://img.shields.io/crates/v/bevy-canvas-2d.svg)](https://crates.io/crates/bevy-canvas-2d)
 [![docs.rs](https://docs.rs/bevy-canvas-2d/badge.svg)](https://docs.rs/bevy-canvas-2d)
 ![Bevy](https://img.shields.io/badge/Bevy-0.17-blue)
